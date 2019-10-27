@@ -1,155 +1,210 @@
-<script src="https://cdn.netpie.io/microgear.js"></script>
-<script src="js/raphael.2.1.0.min.js"></script>
-<script src="js/justgage.1.0.1.min.js"></script>
+<style>
+  .penguin {
+    --penguin-skin: gray;
+    position: relative;
+    margin: auto;
+    display: block;
+    margin-top: 5%;
+    width: 300px;
+    height: 300px;
+  }
 
-<link rel="stylesheet" type="text/css" href="css/style.css">
+  .penguin-top {
+    top: 10%;
+    left: 25%;
 
-<script>
-	var user,nice,sys,idle,cpuload,memload;
-	window.onload = function(){
-		user = new JustGage({
-			id: "user", 
-			value: 0, 
-			min: 0,
-			max: 100,
-			showMinMax: false,
-			title: "user",
-			label: "percentage",
-			labelFontColor:"#FFF",
-			titleFontColor:"#FFF",
-			valueFontColor:"#FFF"
-		});
-		nice = new JustGage({
-			id: "nice", 
-			value: 0, 
-			min: 0,
-			max: 100,
-			showMinMax: false,
-			title: "nice",
-			label: "percentage",
-			labelFontColor:"#FFF",
-			titleFontColor:"#FFF",
-			valueFontColor:"#FFF"
-		});
-		sys = new JustGage({
-			id: "sys", 
-			value: 0, 
-			min: 0,
-			max: 100,
-			showMinMax: false,
-			title: "sys",
-			label: "percentage",
-			labelFontColor:"#FFF",
-			titleFontColor:"#FFF",
-			valueFontColor:"#FFF"
-		});
-		idle = new JustGage({
-			id: "idle", 
-			value: 0, 
-			min: 0,
-			max: 100,
-			showMinMax: false,
-			title: "idle",
-			label: "percentage",
-			labelFontColor:"#FFF",
-			titleFontColor:"#FFF",
-			valueFontColor:"#FFF"
-		});
-		cpuload = new JustGage({
-			id: "cpuload", 
-			value: 0, 
-			min: 0,
-			max: 100,
-			showMinMax: false,
-			title: "CPU Load",
-			label: "percentage",
-			labelFontColor:"#FFF",
-			titleFontColor:"#FFF",
-			valueFontColor:"#FFF"
-		});
-		memload = new JustGage({
-			id: "memload", 
-			value: 0, 
-			min: 0,
-			max: 100,
-			showMinMax: false,
-			title: "Memory Load",
-			label: "percentage",
-			labelFontColor:"#FFF",
-			titleFontColor:"#FFF",
-			valueFontColor:"#FFF"
-		});
-		setInterval(function(){
-			var currentdate = new Date(); 
-			var datetime = (currentdate+"").split(' ');
-			document.getElementById("currenttime").innerHTML = '<p id="datetime"><span id="date">'+datetime[0]+' '+datetime[1]+' '+datetime[2]+' '+datetime[3]+'</span><br><br><span id="time">'+datetime[4]+'</span></p>';
-		},1000);
-      	};
-	const APPKEY = <APPKEY>;
-	const APPSECRET = <APPSECRET>;
-	const APPID = <APPID>;
-	var microgear = Microgear.create({
-		gearkey: APPKEY,
-		gearsecret: APPSECRET
-	});
-	microgear.on('message',function(topic,msg) {
-		var split_msg = msg.split(",");
-		console.log(split_msg);
-		if(split_msg.length == 8){
-			user.refresh(split_msg[0]);
-			nice.refresh(split_msg[1]);
-			sys.refresh(split_msg[2]);
-			idle.refresh(split_msg[3]);
-			cpuload.refresh(split_msg[4]);
-			memload.refresh(split_msg[7]);
-			document.getElementById("totalmemvalue").innerHTML = Math.floor(((parseFloat(split_msg[5])/1024)/1024));
-			document.getElementById("freememvalue").innerHTML = Math.floor(((parseFloat(split_msg[6])/1024)/1024));
-		}
-	});
-	microgear.on('connected', function() {
-		microgear.setname('name');
-	});
-	microgear.resettoken(function(err){
-		microgear.connect(APPID);
-	});
-</script>
-<center>
-<div style="display:block;width:1226px;height:328px;">
-	<div id="logo"><img src="img/logo.png" style="width: 300px;height:193px;display: block;position: absolute;vertical-align:middle;text-align:center;margin:65px 52px;"/></div>
-	<div id="cpuload"></div>
-	<div style="display:inline-block;">
-		<div style="display:table-row;">
-			<div id="user"></div>
-			<div id="nice"></div>
-		</div>
-		<div id="row">
-			<div id="sys"></div>
-			<div id="idle"></div>
-		</div>
-	</div>
+    /* change code below */
+    background: black;
+    /* change code above */
+
+    width: 50%;
+    height: 45%;
+    border-radius: 70% 70% 60% 60%;
+  }
+
+  .penguin-bottom {
+    top: 40%;
+    left: 23.5%;
+
+    /* change code below */
+    background: black;
+    /* change code above */
+
+    width: 53%;
+    height: 45%;
+    border-radius: 70% 70% 100% 100%;
+  }
+
+  .right-hand {
+    top: 0%;
+    left: -5%;
+
+    /* change code below */
+    background: black;
+    /* change code above */
+
+    width: 30%;
+    height: 60%;
+    border-radius: 30% 30% 120% 30%;
+    transform: rotate(45deg);
+    z-index: -1;
+  }
+
+  .left-hand {
+    top: 0%;
+    left: 75%;
+
+    /* change code below */
+    background: black;
+    /* change code above */
+
+    width: 30%;
+    height: 60%;
+    border-radius: 30% 30% 30% 120%;
+    transform: rotate(-45deg);
+    z-index: -1;
+  }
+
+  .right-cheek {
+    top: 15%;
+    left: 35%;
+    background: white;
+    width: 60%;
+    height: 70%;
+    border-radius: 70% 70% 60% 60%;
+  }
+
+  .left-cheek {
+    top: 15%;
+    left: 5%;
+    background: white;
+    width: 60%;
+    height: 70%;
+    border-radius: 70% 70% 60% 60%;
+  }
+
+  .belly {
+    top: 60%;
+    left: 2.5%;
+    background: white;
+    width: 95%;
+    height: 100%;
+    border-radius: 120% 120% 100% 100%;
+  }
+
+  .right-feet {
+    top: 85%;
+    left: 60%;
+    background: orange;
+    width: 15%;
+    height: 30%;
+    border-radius: 50% 50% 50% 50%;
+    transform: rotate(-80deg);
+    z-index: -2222;
+  }
+
+  .left-feet {
+    top: 85%;
+    left: 25%;
+    background: orange;
+    width: 15%;
+    height: 30%;
+    border-radius: 50% 50% 50% 50%;
+    transform: rotate(80deg);
+    z-index: -2222;
+  }
+
+  .right-eye {
+    top: 45%;
+    left: 60%;
+    background: black;
+    width: 15%;
+    height: 17%;
+    border-radius: 50%;
+  }
+
+  .left-eye {
+    top: 45%;
+    left: 25%;
+    background: black;
+    width: 15%;
+    height: 17%;
+    border-radius: 50%;
+  }
+
+  .sparkle {
+    top: 25%;
+    left: 15%;
+    background: white;
+    width: 35%;
+    height: 35%;
+    border-radius: 50%;
+  }
+
+  .blush-right {
+    top: 65%;
+    left: 15%;
+    background: pink;
+    width: 15%;
+    height: 10%;
+    border-radius: 50%;
+  }
+
+  .blush-left {
+    top: 65%;
+    left: 70%;
+    background: pink;
+    width: 15%;
+    height: 10%;
+    border-radius: 50%;
+  }
+
+  .beak-top {
+    top: 60%;
+    left: 40%;
+    background: orange;
+    width: 20%;
+    height: 10%;
+    border-radius: 50%;
+  }
+
+  .beak-bottom {
+    top: 65%;
+    left: 42%;
+    background: orange;
+    width: 16%;
+    height: 10%;
+    border-radius: 50%;
+  }
+
+  body {
+    background:#c6faf1;
+  }
+
+  .penguin * {
+    position: absolute;
+  }
+</style>
+<div class="penguin">
+  <div class="penguin-bottom">
+    <div class="right-hand"></div>
+    <div class="left-hand"></div>
+    <div class="right-feet"></div>
+    <div class="left-feet"></div>
+  </div>
+  <div class="penguin-top">
+    <div class="right-cheek"></div>
+    <div class="left-cheek"></div>
+    <div class="belly"></div>
+    <div class="right-eye">
+      <div class="sparkle"></div>
+    </div>
+    <div class="left-eye">
+      <div class="sparkle"></div>
+    </div>
+    <div class="blush-right"></div>
+    <div class="blush-left"></div>
+    <div class="beak-top"></div>
+    <div class="beak-bottom"></div>
+  </div>
 </div>
-<div style="display:block;width:1226px;height:328px;">
-	<div id="currenttime"></div>
-	<div id="memload"></div>
-	<div style="display:inline;">
-		<div id="row">
-	        <div id="totalmem">
-            	<p>
-                	<span id="topicmem">Total Memory</span><br>
-                	<span id="totalmemvalue">0</span><br>
-                	<span id="megabytes">megabytes</span>
-                </p>
-            </div>
-		</div>
-		<div id="row">
-        	<div id="freemem">
-                <p>
-                	<span id="topicmem">Free Memory</span><br>
-                	<span id="freememvalue">0</span><br>
-                	<span id="megabytes">megabytes</span>
-                </p>
-            </div>
-		</div>
-	</div>
-</div>
-</center>
